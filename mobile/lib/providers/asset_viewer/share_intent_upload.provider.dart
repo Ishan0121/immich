@@ -7,6 +7,7 @@ import 'package:immich_mobile/domain/models/store.model.dart';
 import 'package:immich_mobile/entities/store.entity.dart';
 import 'package:immich_mobile/extensions/string_extensions.dart';
 import 'package:immich_mobile/models/upload/share_intent_attachment.model.dart';
+import 'package:immich_mobile/platform/upload_api.g.dart';
 import 'package:immich_mobile/routing/router.dart';
 import 'package:immich_mobile/services/api.service.dart';
 import 'package:immich_mobile/services/share_intent_service.dart';
@@ -65,46 +66,39 @@ class ShareIntentUploadStateNotifier extends StateNotifier<List<ShareIntentAttac
     state = [];
   }
 
-  void _updateUploadStatus(TaskStatusUpdate task) async {
-    if (task.status == TaskStatus.canceled) {
-      return;
-    }
-
-    final taskId = task.task.taskId;
+  void _updateUploadStatus(UploadApiTaskStatus task) async {
     final uploadStatus = switch (task.status) {
-      TaskStatus.complete => UploadStatus.complete,
-      TaskStatus.failed => UploadStatus.failed,
-      TaskStatus.canceled => UploadStatus.canceled,
-      TaskStatus.enqueued => UploadStatus.enqueued,
-      TaskStatus.running => UploadStatus.running,
-      TaskStatus.paused => UploadStatus.paused,
-      TaskStatus.notFound => UploadStatus.notFound,
-      TaskStatus.waitingToRetry => UploadStatus.waitingToRetry,
+      UploadApiStatus.uploadComplete => UploadStatus.complete,
+      UploadApiStatus.uploadFailed || UploadApiStatus.downloadFailed => UploadStatus.failed,
+      UploadApiStatus.uploadQueued => UploadStatus.enqueued,
+      _ => UploadStatus.preparing,
     };
 
+    final taskId = task.id.toInt();
     state = [
       for (final attachment in state)
-        if (attachment.id == taskId.toInt()) attachment.copyWith(status: uploadStatus) else attachment,
+        if (attachment.id == taskId) attachment.copyWith(status: uploadStatus) else attachment,
     ];
   }
 
-  void _taskProgressCallback(TaskProgressUpdate update) {
+  void _taskProgressCallback(UploadApiTaskProgress update) {
     // Ignore if the task is canceled or completed
     if (update.progress == downloadFailed || update.progress == downloadCompleted) {
       return;
     }
 
-    final taskId = update.task.taskId;
+    final taskId = update.id.toInt();
     state = [
       for (final attachment in state)
-        if (attachment.id == taskId.toInt()) attachment.copyWith(uploadProgress: update.progress) else attachment,
+        if (attachment.id == taskId) attachment.copyWith(uploadProgress: update.progress) else attachment,
     ];
   }
 
   Future<void> upload(File file) async {
-    final task = await _buildUploadTask(hash(file.path).toString(), file);
+    // TODO
+    // final task = await _buildUploadTask(hash(file.path).toString(), file);
 
-    await _uploadService.enqueueTasks([task]);
+    // await _uploadService.enqueueTasks([task]);
   }
 
   Future<UploadTask> _buildUploadTask(String id, File file, {Map<String, String>? fields}) async {

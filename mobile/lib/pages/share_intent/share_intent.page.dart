@@ -212,6 +212,11 @@ class UploadStatusIcon extends StatelessWidget {
         color: context.primaryColor,
         semanticLabel: 'paused'.tr(),
       ),
+      UploadStatus.preparing => Icon(
+        Icons.hourglass_top_rounded,
+        color: context.primaryColor,
+        semanticLabel: 'preparing'.tr(),
+      ),
     };
 
     return statusIcon;
