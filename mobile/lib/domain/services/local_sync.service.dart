@@ -376,5 +376,8 @@ extension on PlatformAsset {
     durationInSeconds: durationInSeconds,
     isFavorite: isFavorite,
     orientation: orientation,
+    adjustmentTime: tryFromSecondsSinceEpoch(adjustmentTime, isUtc: true),
+    latitude: latitude,
+    longitude: longitude,
   );
 }
