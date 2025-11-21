@@ -407,7 +407,6 @@
     "user_restore_scheduled_removal": "Obnovi uporabnika – načrtovana odstranitev na {date, date, long}",
     "user_settings": "Uporabniške nastavitve",
     "user_settings_description": "Upravljanje uporabniških nastavitev",
-    "user_successfully_removed": "Uporabnik {email} je bil uspešno odstranjen.",
     "version_check_enabled_description": "Omogoči preverjanje različice",
     "version_check_implications": "Funkcija preverjanja različic se opira na občasno komunikacijo z github.com",
     "version_check_settings": "Preverjanje različice",

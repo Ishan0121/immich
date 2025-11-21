@@ -398,7 +398,6 @@
     "user_restore_scheduled_removal": "Återställ användare - schemalagd borttagning {date, date, long}",
     "user_settings": "Användarinställningar",
     "user_settings_description": "Hantera användarinställningar",
-    "user_successfully_removed": "Användaren {email} har tagits bort.",
     "version_check_enabled_description": "Aktivera versionskontroll",
     "version_check_implications": "Funktionen för versionskontroll är beroende av periodisk kommunikation med github.com",
     "version_check_settings": "Versionskontroll",

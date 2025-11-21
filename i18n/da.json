@@ -402,7 +402,6 @@
     "user_restore_scheduled_removal": "Gendan bruger - planlagt fjernelse den {date, date, long}",
     "user_settings": "Brugerindstillinger",
     "user_settings_description": "Administrér brugerindstillinger",
-    "user_successfully_removed": "Bruger {email} er blevet fjernet med succes.",
     "version_check_enabled_description": "Aktivér versionstjek",
     "version_check_implications": "Funktionen til versionstjek er afhængig af periodisk kommunikation med github.com",
     "version_check_settings": "Versionstjek",
